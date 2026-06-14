@@ -1,8 +1,10 @@
 package com.example.Hospital.Management.System.controller;
 
+import com.example.Hospital.Management.System.dto.PatientRequest;
 import com.example.Hospital.Management.System.dto.PatientResponse;
 import com.example.Hospital.Management.System.entity.Patient;
 import com.example.Hospital.Management.System.service.PatientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +29,25 @@ public class PatientController {
     }
 
     @PostMapping
-    public ResponseEntity<Patient> createPatient(@RequestBody Patient patient) {
+    public ResponseEntity<Patient> createPatient(
+            @Valid @RequestBody PatientRequest request) {
+
+        Patient patient = Patient.builder()
+                .name(request.getName())
+                .gender(request.getGender())
+                .birthDate(request.getBirthDate())
+                .email(request.getEmail())
+                .bloodGroup(request.getBloodGroup())
+                .build();
+
         return ResponseEntity.ok(patientService.createPatient(patient));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Patient> updatePatient(@PathVariable Long id, @RequestBody Patient patient) {
+    public ResponseEntity<Patient> updatePatient(
+            @PathVariable Long id,
+            @RequestBody Patient patient) {
+
         return ResponseEntity.ok(patientService.updatePatient(id, patient));
     }
 
