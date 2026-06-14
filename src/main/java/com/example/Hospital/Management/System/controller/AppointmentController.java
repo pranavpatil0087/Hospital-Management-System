@@ -2,12 +2,13 @@ package com.example.Hospital.Management.System.controller;
 
 import com.example.Hospital.Management.System.entity.Appointment;
 import com.example.Hospital.Management.System.service.AppointmentService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@SecurityRequirement(name = "Bearer Authentication")
 @RestController
 @RequestMapping("/api/appointments")
 public class AppointmentController {
