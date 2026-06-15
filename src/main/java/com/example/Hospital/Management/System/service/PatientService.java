@@ -10,10 +10,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+//  Marks this class as a Service Layer.
+//  Contains business logic between Controller and Repository
 @RequiredArgsConstructor
+//Lombok automatically creates a constructor for final fields.
 public class PatientService {
+    //PatientService handles all patient-related operations like adding, viewing, updating, and deleting (CRUD) patients.
+    // It receives requests from the Controller, performs the required logic, interacts with the Repository
+    // to access the database, and returns the result back to the Controller.
 
     public final PatientRepository patientRepository;
+    //Repository object is injected automatically through constructor injection.
 
     // Get all patients
     public List<PatientResponse> getAllPatients() {
@@ -51,6 +58,8 @@ public class PatientService {
 
     // Update existing patient
     @Transactional
+    //Makes the whole update operation a single database transaction.
+    //If anything fails, all changes are rolled back.
     public Patient updatePatient(Long id, Patient updatedPatient) {
         Patient existing = patientRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Patient not found with id: " + id));

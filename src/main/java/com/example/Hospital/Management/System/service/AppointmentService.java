@@ -36,7 +36,7 @@
             Patient patient = patientRepository.findById(patientId)
                     .orElseThrow(() -> new RuntimeException("Patient not found with id: " + patientId));
 
-            if (appointment.getId() != null)
+            if (appointment.getId() != null && appointment.getId() > 0)
                 throw new IllegalArgumentException("Appointment should not have an id");
 
             // Check if doctor is already booked at this time
